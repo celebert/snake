@@ -1,0 +1,44 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html, body{ 
+    height: 100%;
+    width: calc(100vw - (100vw - 100%));
+    font-family: 'Roboto', sans-serif;
+
+}
+
+img{
+    display: block;
+}
+
+#content{
+    width: 100%;
+    height: 100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#playBox{
+    width: 80vh;
+    height: 80vh;
+    display: grid;
+    grid-template-columns: repeat(50, 2%);
+    grid-template-rows: repeat(50, 2%);
+    background-color: bisque;
+    border: 1px black solid;
+}
+
+#snake{
+    background-color: black;
+}
+
+#food{
+    background-color: green;
+}
+.tail{
+    background-color: black;
+}
