@@ -1,10 +1,9 @@
-var snake = document.getElementById("snake");
+var snake = document.getElementsByClassName("snake");
 var food = document.getElementById("food");
-var col = 25
+var col = 26
 var row = 25
-var points = 0
-tailPos = []
-
+snakePos = [{col:26,row:25},{col:25,row:25}]
+snakeLength = snakePos.length
 createFood()
 
 
@@ -31,10 +30,6 @@ function checkKey(e) {
 }
 
 function game(){
-  
-  if(tailPos.length>points){
-    tailPos.shift()
-  }
 
   switch (move){
     case 1:
@@ -58,17 +53,17 @@ function game(){
       row=1;
     }
     if(col==0){
-      col=51;
+      col=50;
     }
     if(row==0){
-      row=51;
+      row=50;
     }
 
     if(col == foodcol && row == foodrow){
-      points+=1
+      snakeLength+=1
       createFood()
       div = document.createElement("div");
-      div.className = "tail";
+      div.className = "snake";
       document.getElementById("playBox").appendChild(div);
     }
 
@@ -77,7 +72,8 @@ function game(){
   changePos()
 
 }
-setInterval(game, 200)
+
+var play = setInterval(game, 50)
 
 
 function createFood(){
@@ -89,23 +85,33 @@ function createFood(){
 }
 
 function changePos(){
-  snake.style.gridColumn = `${col}`
-  snake.style.gridRow = `${row}`
+  snakePos.splice(0,0,{col:col,row:row})
 
-  tailPos.push({
-    col: col,
-    row: row
-  })
+  if(snakePos.length>snakeLength){
+    snakePos.splice(-1,1)
+  }
 
-  for(let i=1; i<points;i++){
-    if(tailPos[i-1].col==col && tailPos[i-1].row==row){
-      alert("ugryzles sei w dupala")
+  for(let i=0; i<snakeLength;i++){
+    snake[i].style.gridColumn = `${snakePos[i].col}`
+    snake[i].style.gridRow = `${snakePos[i].row}`
+
+  
+    if(JSON.stringify(snakePos[0]) === JSON.stringify(snakePos[i+1])){
+      food.style.display = "none"
+      lose()
+      clearInterval(play)
+     
+      setInterval(lose, 1000)
+      break
     }
   }
-  for(let i=0; i<points;i++){
+
+}
 
 
-    document.getElementsByClassName(`tail`)[i].style.gridColumn = `${tailPos[i].col}`
-    document.getElementsByClassName(`tail`)[i].style.gridRow = `${tailPos[i].row}`
-  }
+function lose(){
+  
+console.log("dupa")
+
+
 }
