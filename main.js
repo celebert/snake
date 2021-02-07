@@ -129,6 +129,7 @@ function lose(){
   divText.innerHTML = "You lose"
   document.getElementsByClassName("info")[0].appendChild(divText)
   divScore.innerHTML = `Score: ${snakeLength-2}`
+  divScore.style.fontSize = "5vh"
   document.getElementsByClassName("info")[0].appendChild(divScore)
   
   setInterval(function(){
