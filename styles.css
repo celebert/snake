@@ -39,13 +39,11 @@ img{
 
 .snake{
     background-color: black;
+    z-index: 99;
 }
 
 #food{
     background-color:green;
-}
-.tail{
-    background-color: black;
 }
 
 .info{
