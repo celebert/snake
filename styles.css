@@ -20,6 +20,7 @@ img{
     display:flex;
     align-items: center;
     justify-content: center;
+    position:relative;
 }
 
 #playBox{
@@ -30,6 +31,8 @@ img{
     grid-template-rows: repeat(50, 2%);
     background-color: bisque;
     border: 1px black solid;
+    position: absolute;
+
 }
 
 .snake{
@@ -41,4 +44,10 @@ img{
 }
 .tail{
     background-color: black;
+}
+
+.info{
+    position: absolute;
+    z-index: 100;
+    font-size: 15vh;
 }
