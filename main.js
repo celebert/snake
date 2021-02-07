@@ -83,8 +83,8 @@ var play = setInterval(game, 50)
 
 
 function createFood(){
-  foodcol = Math.floor(Math.random() * 51);  
-  foodrow = Math.floor(Math.random() * 51);  
+  foodcol = Math.floor(Math.random() * 50)+1;  
+  foodrow = Math.floor(Math.random() * 50)+1;  
   food.style.gridColumn = `${foodcol}`
   food.style.gridRow = `${foodrow}`
   
