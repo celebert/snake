@@ -5,7 +5,10 @@ var row = 25
 snakePos = [{col:26,row:25},{col:25,row:25}]
 snakeLength = snakePos.length
 createFood()
-
+for(let i=0; i<snakeLength;i++){
+    snake[i].style.gridColumn = `${snakePos[i].col}`
+    snake[i].style.gridRow = `${snakePos[i].row}`
+}
 
 document.onkeydown = checkKey;
 
