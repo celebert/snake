@@ -14,17 +14,20 @@ var move = 4
 function checkKey(e) {
 
     e = e || window.event;
-
-    if (e.keyCode == '38') {
+    //up
+    if (e.keyCode == '38' && move != 2) {
       move = 1
     }
-    else if (e.keyCode == '40') {
+    //down
+    else if (e.keyCode == '40' && move != 1) {
       move = 2
     }
-    else if (e.keyCode == '37') {
+    //left
+    else if (e.keyCode == '37' && move != 4) {
       move = 3
     }
-    else if (e.keyCode == '39') {
+    //right
+    else if (e.keyCode == '39' && move != 3) {
       move = 4
     }
 }
@@ -62,7 +65,7 @@ function game(){
     if(col == foodcol && row == foodrow){
       snakeLength+=1
       createFood()
-      div = document.createElement("div");
+      let div = document.createElement("div");
       div.className = "snake";
       document.getElementById("playBox").appendChild(div);
     }
@@ -100,8 +103,6 @@ function changePos(){
       food.style.display = "none"
       lose()
       clearInterval(play)
-     
-      setInterval(lose, 1000)
       break
     }
   }
@@ -110,8 +111,32 @@ function changePos(){
 
 
 function lose(){
+
+  let div = document.createElement("div");     
+  let wholeSnake = document.querySelectorAll('.snake');
+  let state = 1
+
+  div.classList.add("info")
+  div.innerHTML = "You lose"
+  document.getElementById("content").appendChild(div)
   
-console.log("dupa")
+
+  
+  setInterval(function(){
+
+    if(state%2==0){
+      for(let i=0; i<wholeSnake.length;i++)
+      wholeSnake[i].style.removeProperty('display')
+      state+=1
+    }else{
+      for(let i=0; i<wholeSnake.length;i++)
+      wholeSnake[i].style.display = "none"
+      state+=1
+      
+    }
+    
+    
+    }, 750);
 
 
 }
