@@ -71,7 +71,8 @@ img{
     z-index: 99;
     grid-column: 25/27;
     grid-row: 25/25;
-    outline: 1px solid black;
+    box-sizing: border-box;
+    border: 1px solid black;
 }
 
 #food{
