@@ -35,15 +35,19 @@ img{
     background-color: bisque;
     position: absolute;
     box-shadow: 0px 0px 25px 20px rgba(0,0,0,0.5);
+    border:5px solid black
 }
+
 
 .snake{
     background-color: black;
+    
     z-index: 99;
 }
 
 #food{
     background-color:green;
+    z-index: 99;
 }
 
 .info{
@@ -55,4 +59,9 @@ img{
     align-items: center;
     justify-content: center;
     color:rgb(97, 25, 19)
+}
+
+.darker{
+    background-color:rgb(197, 192, 167);
+    
 }
