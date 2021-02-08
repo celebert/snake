@@ -1,5 +1,6 @@
 var snake = document.getElementsByClassName("snake");
 var food = document.getElementById("food");
+
 var col = 26
 var row = 25
 snakePos = [{col:26,row:25},{col:25,row:25}]
@@ -11,6 +12,24 @@ for(let i=0; i<snakeLength;i++){
   snake[i].style.gridRow = `${snakePos[i].row}`
 }
 
+for (let i = 1; i < 51; i++) {
+  if(i%2==0){
+  for (let n = 1; n < 51; n+=2) {
+  var div = document.createElement("div");
+  div.classList.add("darker")
+  div.style.gridColumn = n
+  div.style.gridRow = i
+  document.getElementById("playBox").appendChild(div);
+  }}else{
+    for (let n = 2; n < 51; n+=2) {
+      var div = document.createElement("div");
+      div.classList.add("darker")
+      div.style.gridColumn = n
+      div.style.gridRow = i
+      document.getElementById("playBox").appendChild(div);
+  }
+}
+}
 document.onkeydown = checkKey;
 
 var move = 4
@@ -69,7 +88,7 @@ function game(){
     if(col == foodcol && row == foodrow){
       snakeLength+=1
       createFood()
-      let div = document.createElement("div");
+      var div = document.createElement("div");
       div.className = "snake";
       document.getElementById("playBox").appendChild(div);
     }
@@ -80,7 +99,7 @@ function game(){
 
 }
 
-var play = setInterval(game, 50)
+var play = setInterval(game, 100)
 
 
 function createFood(){
