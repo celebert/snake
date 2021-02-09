@@ -107,7 +107,7 @@ for(i=0; i<2; i++){
         var div = document.createElement("div");
         div.className = "snakeOne";
         document.getElementById("playBox").appendChild(div);
-        document.getElementById("score").innerHTML=`Score: ${snakeOneLength-2}`;
+        document.getElementById("scoreOne").innerHTML=`Score: ${snakeOneLength-2}`;
       }
     changePos()
   }
