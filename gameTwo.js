@@ -1,19 +1,32 @@
 //--init 
 
-var snakeOne = document.getElementsByClassName("snakeOne");
-var snakeTwo = document.getElementsByClassName("snakeTwo");
 var end = 0;
 //starting position
 var colOne = 49
 var rowOne = 3
-snakePosOne = [{col:49,row:3},{col:49,row:2}]
+snakeOnePos = [{col:49,row:3},{col:49,row:2}]
 
 var colTwo = 2
 var rowTwo = 48
-snakePosTwo = [{col:2,row:48},{col:2,row:49}]
+snakeTwoPos = [{col:2,row:48},{col:2,row:49}]
 
-snakeLengthOne = snakePosOne.length
-snakeLengthTwo = snakePosTwo.length
+
+
+for(i=0; i<2; i++){
+let div = document.createElement("div")
+let divTwo = document.createElement("div")
+div.classList.add("snakeOne")
+document.getElementById("playBox").appendChild(div)
+divTwo.classList.add("snakeTwo")
+document.getElementById("playBox").appendChild(divTwo)
+}
+snakeOne = document.getElementsByClassName("snakeOne");
+snakeTwo = document.getElementsByClassName("snakeTwo");
+
+
+
+snakeOneLength = snakeOnePos.length
+snakeTwoLength = snakeTwoPos.length
 
 var foodCreate = document.createElement("div");
 foodCreate.id = "food"
@@ -39,6 +52,14 @@ for (let i = 1; i < 51; i++) {
 }
 }
 
+for(let i=0; i<snakeOneLength;i++){
+  snakeOne[i].style.gridColumn = `${snakeOnePos[i].col}`
+  snakeOne[i].style.gridRow = `${snakeOnePos[i].row}`
+}
+for(let i=0; i<snakeTwoLength;i++){
+  snakeTwo[i].style.gridColumn = `${snakeTwoPos[i].col}`
+  snakeTwo[i].style.gridRow = `${snakeTwoPos[i].row}`
+}
 //--init
 
 setTimeout(function(){
@@ -155,21 +176,21 @@ function game(){
 
     //if food picked, increase length of snake and create new food
     if(colOne == foodcol && rowOne == foodrow){
-      snakeLengthOne+=1
+      snakeOneLength+=1
       createFood()
       var div = document.createElement("div");
       div.className = "snakeOne";
       document.getElementById("playBox").appendChild(div);
-      document.getElementById("score").innerHTML=`Score: ${snakeLengthOne-2}`;
+      document.getElementById("scoreOne").innerHTML=`Score: ${snakeOneLength-2}`;
     }
 
     if(colTwo == foodcol && rowTwo == foodrow){
-      snakeLengthTwo+=1
+      snakeTwoLength+=1
       createFood()
       var divTwo = document.createElement("div");
       divTwo.className = "snakeTwo";
       document.getElementById("playBox").appendChild(divTwo);
-      document.getElementById("scoreTwo").innerHTML=`Score: ${snakeLengthTwo-2}`;
+      document.getElementById("scoreTwo").innerHTML=`Score: ${snakeTwoLength-2}`;
     }
 
   changePosOne()
@@ -192,20 +213,20 @@ food.style.gridRow = `${foodrow}`
 }
 //adding position of snake head to 0 index
 function changePosOne(){
-snakePosOne.splice(0,0,{col:colOne,row:rowOne})
+snakeOnePos.splice(0,0,{col:colOne,row:rowOne})
 
 //deleting last position if there are more positions than actual snake length
-if(snakePosOne.length>snakeLengthOne){
-  snakePosOne.splice(-1,1)
+if(snakeOnePos.length>snakeOneLength){
+  snakeOnePos.splice(-1,1)
 }
 
 
 //adding tail of snake
-for(let i=0; i<snakeLengthOne;i++){
-  snakeOne[i].style.gridColumn = `${snakePosOne[i].col}`
-  snakeOne[i].style.gridRow = `${snakePosOne[i].row}`
+for(let i=0; i<snakeOneLength;i++){
+  snakeOne[i].style.gridColumn = `${snakeOnePos[i].col}`
+  snakeOne[i].style.gridRow = `${snakeOnePos[i].row}`
   //comparing if head has the same position as rest of body(if it is, you lose)
-  if(JSON.stringify(snakePosOne[0]) === JSON.stringify(snakePosOne[i+1])){
+  if(JSON.stringify(snakeOnePos[0]) === JSON.stringify(snakeOnePos[i+1])){
     food.style.display = "none"
     lose()
 
@@ -214,20 +235,20 @@ for(let i=0; i<snakeLengthOne;i++){
 }
 }
 function changePosTwo(){
-snakePosTwo.splice(0,0,{col:colTwo,row:rowTwo})
+snakeTwoPos.splice(0,0,{col:colTwo,row:rowTwo})
 
 //deleting last position if there are more positions than actual snake length
-  if(snakePosTwo.length>snakeLengthTwo){
-    snakePosTwo.splice(-1,1)
+  if(snakeTwoPos.length>snakeTwoLength){
+    snakeTwoPos.splice(-1,1)
   }
 
 
 //adding tail of snake
-  for(let i=0; i<snakeLengthTwo;i++){
-    snakeTwo[i].style.gridColumn = `${snakePosTwo[i].col}`
-    snakeTwo[i].style.gridRow = `${snakePosTwo[i].row}`
+  for(let i=0; i<snakeTwoLength;i++){
+    snakeTwo[i].style.gridColumn = `${snakeTwoPos[i].col}`
+    snakeTwo[i].style.gridRow = `${snakeTwoPos[i].row}`
     //comparing if head has the same position as rest of body(if it is, you lose)
-     if(JSON.stringify(snakePosTwo[0]) === JSON.stringify(snakePosTwo[i+1])){
+     if(JSON.stringify(snakeTwoPos[0]) === JSON.stringify(snakeTwoPos[i+1])){
       loseTwo()
       break
     }
@@ -288,14 +309,14 @@ function endInfo(){
   divInfo.classList.add("info") 
   document.getElementById("content").appendChild(divInfo)
 
-  if(snakeLengthOne>snakeLengthTwo){
+  if(snakeOneLength>snakeTwoLength){
     divText.innerHTML = "Green wins"
-    divScore.innerHTML = `Score: ${snakeLengthOne-2}`
-  }else if(snakeLengthOne==snakeLengthTwo){
+    divScore.innerHTML = `Score: ${snakeOneLength-2}`
+  }else if(snakeOneLength==snakeTwoLength){
     divText.innerHTML = "Draw"
   }else{
     divText.innerHTML = "Blue wins"
-    divScore.innerHTML = `Score: ${snakeLengthTwo-2}`
+    divScore.innerHTML = `Score: ${snakeTwoLength-2}`
   }
   document.getElementsByClassName("info")[0].appendChild(divText)
   divScore.style.fontSize = "4vh"
