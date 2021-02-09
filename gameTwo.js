@@ -269,8 +269,8 @@ let wholeSnakeOne = document.querySelectorAll('.snakeOne');
 for(let i=0; i<wholeSnakeOne.length;i++){
   wholeSnakeOne[i].style.display = "none"
 }
-document.getElementById("instructions").style.backgroundColor="red"
-document.getElementById("score").style.backgroundColor="red"
+document.getElementById("instructionsOne").style.backgroundColor="red"
+document.getElementById("scoreOne").style.backgroundColor="red"
 end+=1
 console.log(end)
 if(end==2){
