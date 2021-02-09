@@ -130,6 +130,10 @@ function game(){
     case 4:
       colOne+=1;
       break
+    case 5:
+      colOne+=0;
+      rowOne+=0;
+      break
   }
   //possibility to move through walls
     if(colOne==51){
@@ -159,6 +163,10 @@ function game(){
       case 4:
         colTwo+=1;
         break
+      case 5:
+        colTwo+=0;
+        rowTwo+=0;
+        break
     }
     //possibility to move through walls
       if(colTwo==51){
@@ -176,6 +184,7 @@ function game(){
 
     //if food picked, increase length of snake and create new food
     if(colOne == foodcol && rowOne == foodrow){
+
       snakeOneLength+=1
       createFood()
       var div = document.createElement("div");
@@ -223,17 +232,21 @@ if(snakeOnePos.length>snakeOneLength){
 
 //adding tail of snake
 for(let i=0; i<snakeOneLength;i++){
+  let wholeSnakeOne = document.querySelectorAll('.snakeOne');
+  if(wholeSnakeOne.length>0){
   snakeOne[i].style.gridColumn = `${snakeOnePos[i].col}`
   snakeOne[i].style.gridRow = `${snakeOnePos[i].row}`
   //comparing if head has the same position as rest of body(if it is, you lose)
   if(JSON.stringify(snakeOnePos[0]) === JSON.stringify(snakeOnePos[i+1])){
-    food.style.display = "none"
+    moveOne=5
     lose()
-
     break
   }
 }
 }
+}
+
+
 function changePosTwo(){
 snakeTwoPos.splice(0,0,{col:colTwo,row:rowTwo})
 
@@ -245,15 +258,18 @@ snakeTwoPos.splice(0,0,{col:colTwo,row:rowTwo})
 
 //adding tail of snake
   for(let i=0; i<snakeTwoLength;i++){
+    let wholeSnakeTwo = document.querySelectorAll('.snakeTwo');
+    if(wholeSnakeTwo.length>0){
     snakeTwo[i].style.gridColumn = `${snakeTwoPos[i].col}`
     snakeTwo[i].style.gridRow = `${snakeTwoPos[i].row}`
     //comparing if head has the same position as rest of body(if it is, you lose)
      if(JSON.stringify(snakeTwoPos[0]) === JSON.stringify(snakeTwoPos[i+1])){
+      moveTwo=5
       loseTwo()
       break
     }
   }
-
+  }
 
 
 
@@ -262,13 +278,14 @@ snakeTwoPos.splice(0,0,{col:colTwo,row:rowTwo})
 },3000)
 
 function lose(){
-
-
-let wholeSnakeOne = document.querySelectorAll('.snakeOne');
-
+  
+// document.getElementsByClassName('snakeOne')
+wholeSnakeOne = document.querySelectorAll('.snakeOne');
 for(let i=0; i<wholeSnakeOne.length;i++){
-  wholeSnakeOne[i].style.display = "none"
+  wholeSnakeOne[i].remove()
 }
+
+
 document.getElementById("instructionsOne").style.backgroundColor="red"
 document.getElementById("scoreOne").style.backgroundColor="red"
 end+=1
@@ -283,10 +300,13 @@ if(end==2){
 
 
 function loseTwo(){
-  let wholeSnakeTwo = document.querySelectorAll('.snakeTwo');
-  for(let i=0; i<wholeSnakeTwo.length;i++){
-  wholeSnakeTwo[i].style.display = "none"
+  
+
+wholeSnakeTwo = document.querySelectorAll('.snakeTwo');
+for(let i=0; i<wholeSnakeTwo.length;i++){
+  wholeSnakeTwo[i].remove()
 }
+
 document.getElementById("instructionsTwo").style.backgroundColor="red"
 document.getElementById("scoreTwo").style.backgroundColor="red"
 end+=1
@@ -300,7 +320,7 @@ function retry(){
 }
 
 function endInfo(){
-  console.log("dupa")
+  document.getElementById("food").style.display = "none"
   let divInfo = document.createElement("div");
   let divText = document.createElement("div");
   let divScore = document.createElement("div");
