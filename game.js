@@ -132,7 +132,7 @@ var move = 4
     changePos()
   }
   //how fast the game updates
-  var play = setInterval(game, 50)
+  var play = setInterval(game, 250)
 
 //--movement
 
