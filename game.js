@@ -43,48 +43,68 @@ for(i=0; i<2; i++){
   }
 
 //--init
-
+var keyPressedOne = false
 
 //--movement 
-
-  //changing position of snake head
-  function game(){
-
+var move = 4
   //movement by key
   document.onkeydown = checkKey;
-  var move = 4
+  
   function checkKey(e) {
 
       e = e || window.event;
       //up
-      if (e.keyCode == '38' && move != 2) {
+      if(keyPressedOne == false){
+        if (e.keyCode == '38' && move != 2) {
+        keyPressedOne = true
         move = 1
       }
+    }
       //down
-      else if (e.keyCode == '40' && move != 1) {
+      if(keyPressedOne == false){
+        if (e.keyCode == '40' && move != 1) {
+        keyPressedOne = true
         move = 2
       }
+    }
       //left
-      else if (e.keyCode == '37' && move != 4) {
+      if(keyPressedOne == false){
+        if (e.keyCode == '37' && move != 4) {
+        keyPressedOne = true
         move = 3
       }
+    }
       //right
-      else if (e.keyCode == '39' && move != 3) {
+      if(keyPressedOne == false){
+        if (e.keyCode == '39' && move != 3) {
+        keyPressedOne = true
         move = 4
       }
+    }
   }
+  //changing position of snake head
+  function game(){
+     
     switch (move){
       case 1:
         row-=1;
+        keyPressedOne = false
         break;
       case 2:
         row+=1;
+        keyPressedOne = false
         break
       case 3:
         col-=1;
+        keyPressedOne = false
         break
       case 4:
         col+=1;
+        keyPressedOne = false
+        break
+      case 5:
+        col+=0;
+        row+=0;
         break
     }
     //possibility to move through walls

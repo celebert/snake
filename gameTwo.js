@@ -2,6 +2,7 @@
 
 var end = 0;
 //starting position
+
 var colOne = 49
 var rowOne = 3
 snakeOnePos = [{col:49,row:3},{col:49,row:2}]
@@ -10,8 +11,9 @@ var colTwo = 2
 var rowTwo = 48
 snakeTwoPos = [{col:2,row:48},{col:2,row:49}]
 
+allPoints = 0
 
-
+//create both snakes
 for(i=0; i<2; i++){
 let div = document.createElement("div")
 let divTwo = document.createElement("div")
@@ -23,10 +25,18 @@ document.getElementById("playBox").appendChild(divTwo)
 snakeOne = document.getElementsByClassName("snakeOne");
 snakeTwo = document.getElementsByClassName("snakeTwo");
 
-
-
 snakeOneLength = snakeOnePos.length
 snakeTwoLength = snakeTwoPos.length
+
+for(let i=0; i<snakeOneLength;i++){
+  snakeOne[i].style.gridColumn = `${snakeOnePos[i].col}`
+  snakeOne[i].style.gridRow = `${snakeOnePos[i].row}`
+}
+for(let i=0; i<snakeTwoLength;i++){
+  snakeTwo[i].style.gridColumn = `${snakeTwoPos[i].col}`
+  snakeTwo[i].style.gridRow = `${snakeTwoPos[i].row}`
+}
+
 
 var foodCreate = document.createElement("div");
 foodCreate.id = "food"
@@ -52,28 +62,21 @@ for (let i = 1; i < 51; i++) {
 }
 }
 
-for(let i=0; i<snakeOneLength;i++){
-  snakeOne[i].style.gridColumn = `${snakeOnePos[i].col}`
-  snakeOne[i].style.gridRow = `${snakeOnePos[i].row}`
-}
-for(let i=0; i<snakeTwoLength;i++){
-  snakeTwo[i].style.gridColumn = `${snakeTwoPos[i].col}`
-  snakeTwo[i].style.gridRow = `${snakeTwoPos[i].row}`
-}
-//--init
 
+//--init
+//starts after 3 seconds
 setTimeout(function(){
 document.getElementById("playBox").appendChild(foodCreate);
 createFood()
-//--movement 
+  
+//--movement init
 
 var moveOne = 2
 var moveTwo = 1
 
-//changing position of snake head
-function game(){
-  
-//movement by key
+var keyPressedOne = false
+var keyPressedTwo = false
+
 document.onkeydown = checkKey;
 
 
@@ -83,53 +86,85 @@ function checkKey(e) {
 
     //player one
     //up
-    if (e.keyCode == '38' && moveOne != 2) {
+    if(keyPressedOne == false){
+      if (e.keyCode == '38' && moveOne != 2) {
+      keyPressedOne = true
       moveOne = 1
+      }
     }
     //down
-    else if (e.keyCode == '40' && moveOne != 1) {
+    if(keyPressedOne == false){
+      if (e.keyCode == '40' && moveOne != 1) {
+      keyPressedOne = true
       moveOne = 2
+      }
     }
     //left
-    else if (e.keyCode == '37' && moveOne != 4) {
+    if(keyPressedOne == false){
+      if (e.keyCode == '37' && moveOne != 4) {
+      keyPressedOne = true
       moveOne = 3
+      }
     }
     //right
-    else if (e.keyCode == '39' && moveOne != 3) {
+    if(keyPressedOne == false){
+      if (e.keyCode == '39' && moveOne != 3) {
+      keyPressedOne = true
       moveOne = 4
+      }
     }
-
     //player two
     //w
-    if (e.keyCode == '87' && moveTwo != 2) {
-      moveTwo = 1
+    if(keyPressedTwo == false){
+      if (e.keyCode == '87' && moveTwo != 2) {
+        keyPressedTwo = true
+        moveTwo = 1
+      }
     }
     //s
-    else if (e.keyCode == '83' && moveTwo != 1) {
-      moveTwo = 2
+    if(keyPressedTwo == false){
+      if (e.keyCode == '83' && moveTwo != 1) {
+        keyPressedTwo = true
+        moveTwo = 2
+      }
     }
     //a
-    else if (e.keyCode == '65' && moveTwo != 4) {
-      moveTwo = 3
+    if(keyPressedTwo == false){
+      if (e.keyCode == '65' && moveTwo != 4) {
+        keyPressedTwo = true
+        moveTwo = 3
+      }
     }
     //d
-    else if (e.keyCode == '68' && moveTwo != 3) {
-      moveTwo = 4
+    if(keyPressedTwo == false){
+      if (e.keyCode == '68' && moveTwo != 3) {
+        keyPressedTwo = true
+        moveTwo = 4
+      }
     }
 }
+
+function game(){
+  
+  //movement by key
+
    //player one
   switch (moveOne){
     case 1:
       rowOne-=1;
+      keyPressedOne = false
       break;
     case 2:
       rowOne+=1;
+      keyPressedOne = false
       break
     case 3:
       colOne-=1;
+      keyPressedOne = false
       break
     case 4:
       colOne+=1;
+      keyPressedOne = false
       break
     case 5:
       colOne+=0;
@@ -154,15 +189,19 @@ function checkKey(e) {
     switch (moveTwo){
       case 1:
         rowTwo-=1;
+        keyPressedTwo = false
         break;
       case 2:
         rowTwo+=1;
+        keyPressedTwo = false
         break
       case 3:
         colTwo-=1;
+        keyPressedTwo = false
         break
       case 4:
         colTwo+=1;
+        keyPressedTwo = false
         break
       case 5:
         colTwo+=0;
@@ -205,6 +244,9 @@ function checkKey(e) {
 
   changePosOne()
   changePosTwo()
+
+
+
 }
 //how fast the game updates
 play = setInterval(game, 50)
@@ -219,10 +261,12 @@ foodcol = Math.floor(Math.random() * 50)+1;
 foodrow = Math.floor(Math.random() * 50)+1;  
 food.style.gridColumn = `${foodcol}`
 food.style.gridRow = `${foodrow}`
+allPoints+=1
 
 }
 //adding position of snake head to 0 index
 function changePosOne(){
+let allSnakeLength = snakeOneLength+snakeTwoLength
 snakeOnePos.splice(0,0,{col:colOne,row:rowOne})
 
 //deleting last position if there are more positions than actual snake length
@@ -232,25 +276,36 @@ if(snakeOnePos.length>snakeOneLength){
 
 
 //adding tail of snake
-for(let i=0; i<snakeOneLength;i++){
+for(let i=0; i<allSnakeLength;i++){
   let wholeSnakeOne = document.querySelectorAll('.snakeOne');
-  if(wholeSnakeOne.length>0){
-  snakeOne[i].style.gridColumn = `${snakeOnePos[i].col}`
-  snakeOne[i].style.gridRow = `${snakeOnePos[i].row}`
-  //comparing if head has the same position as rest of body(if it is, you lose)
-  if(JSON.stringify(snakeOnePos[0]) === JSON.stringify(snakeOnePos[i+1])){
-    moveOne=5
-    lose()
-    break
+  if(wholeSnakeOne.length>0 && i<snakeOneLength ){
+    snakeOne[i].style.gridColumn = `${snakeOnePos[i].col}`
+    snakeOne[i].style.gridRow = `${snakeOnePos[i].row}`
+    //comparing if head has the same position as rest of body(if it is, you lose)
+    snakeOneHead = JSON.stringify(snakeOnePos[0])
+    snakeOneBody = JSON.stringify(snakeOnePos[i+1])
+    //comparing if head has the same position as rest of body(if it is, you lose)
+    if(snakeOneHead === snakeOneBody){
+    
+      moveOne=5
+      lose()
+      break
+    }
   }
-}
+  
+  if(i<snakeTwoLength ){
+    snakeTwoBody = JSON.stringify(snakeTwoPos[i])
+    if(snakeOneHead === snakeTwoBody){
+      lose()
+  }
+  }
 }
 }
 
 
 function changePosTwo(){
 snakeTwoPos.splice(0,0,{col:colTwo,row:rowTwo})
-
+let allSnakeLength = snakeOneLength+snakeTwoLength
 //deleting last position if there are more positions than actual snake length
   if(snakeTwoPos.length>snakeTwoLength){
     snakeTwoPos.splice(-1,1)
@@ -258,18 +313,26 @@ snakeTwoPos.splice(0,0,{col:colTwo,row:rowTwo})
 
 
 //adding tail of snake
-  for(let i=0; i<snakeTwoLength;i++){
+  for(let i=0; i<allSnakeLength;i++){
     let wholeSnakeTwo = document.querySelectorAll('.snakeTwo');
-    if(wholeSnakeTwo.length>0){
+    if(wholeSnakeTwo.length>0 && i<snakeTwoLength ){
     snakeTwo[i].style.gridColumn = `${snakeTwoPos[i].col}`
     snakeTwo[i].style.gridRow = `${snakeTwoPos[i].row}`
     //comparing if head has the same position as rest of body(if it is, you lose)
-     if(JSON.stringify(snakeTwoPos[0]) === JSON.stringify(snakeTwoPos[i+1])){
+    snakeTwoHead = JSON.stringify(snakeTwoPos[0])
+    snakeTwoBody = JSON.stringify(snakeTwoPos[i+1])
+     if(snakeTwoHead === snakeTwoBody){
       moveTwo=5
       loseTwo()
       break
     }
   }
+  if(i<snakeOneLength ){
+    snakeOneBody = JSON.stringify(snakeOnePos[i])
+    if(snakeTwoHead === snakeOneBody){
+      loseTwo()
+  }
+}
   }
 
 
@@ -280,11 +343,10 @@ snakeTwoPos.splice(0,0,{col:colTwo,row:rowTwo})
 
 function lose(){
   
-// document.getElementsByClassName('snakeOne')
-wholeSnakeOne = document.querySelectorAll('.snakeOne');
-for(let i=0; i<wholeSnakeOne.length;i++){
-  wholeSnakeOne[i].remove()
-}
+  let wholeSnakeOne = document.querySelectorAll('.snakeOne');
+  for(let i=0; i<wholeSnakeOne.length;i++){
+    wholeSnakeOne[i].remove()
+  }
 
 
 document.getElementById("instructionsOne").style.backgroundColor="red"
