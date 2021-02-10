@@ -47,6 +47,9 @@ for(i=0; i<2; i++){
 
 //--movement 
 
+  //changing position of snake head
+  function game(){
+
   //movement by key
   document.onkeydown = checkKey;
   var move = 4
@@ -70,9 +73,6 @@ for(i=0; i<2; i++){
         move = 4
       }
   }
-  //changing position of snake head
-  function game(){
-     
     switch (move){
       case 1:
         row-=1;
